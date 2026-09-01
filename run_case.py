@@ -39,6 +39,7 @@ def run_case():
     chart.create_bar(source_count)
     chart.create_line(new_df)
     chart.create_pie(keyword_count)
+    chart.create_scatter(new_df)
 
 
 if __name__ == '__main__':
