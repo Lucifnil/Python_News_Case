@@ -124,11 +124,9 @@ class NewsFetcher(BaseFetcher):
 # 基础BaseFetcher负责网络爬取内容
 
 # NewsFetcher继承BaseFetcher,负责数据协程并发 网络发起，正则匹配，垃圾处理
-# print(asyncio.run(NewsFetcher().crawl_news()))
+# print([item.to_row() for item in asyncio.run(NewsFetcher().crawl_news())] )
 # 证书 mac版本 没有ssl证书
 # asyncio.create_task(函数名(), 参数)
 # asyncio.to_thread(函数名, 参数) - 把一个非等待对象转化等待对象实现并发
 # await 只能可等待对象
 # asyncio.gather(任务1，任务2，任务3， 任务4)
-
-print(asyncio.run(NewsFetcher().crawl_news()))

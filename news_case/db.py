@@ -1,7 +1,9 @@
 try:
-    from news_case.config import DB_PATH, SCHEMA_PATH
-except ModuleNotFoundError:
+    from .config import DB_PATH, SCHEMA_PATH
+    from .models import NewsItem
+except ImportError:
     from config import DB_PATH, SCHEMA_PATH
+    from models import NewsItem
 import sqlite3
 
 
@@ -35,14 +37,26 @@ class NewsDataBase(object):
         pass
 
     # 插入新闻
-    def save_news(self):
+    def save_news(self, news_list:list[NewsItem]):
+        # insert into news (source_name, title, link,pub_time,keyword, title_length) values (?,?,?,?,?,?)
+        with self.connect() as conn:
+            cursor = conn.cursor()
+            # 清空新闻表数据
+            cursor.execute("delete from news")
+            cursor.executemany("""
+            insert into news
+            (source_name, title, link,pub_time,keyword, title_length)
+            values (?,?,?,?,?,?)
+            """, [item.to_row() for item in news_list])
+            # 推导式 [i for i in range(10)] (i for i in range(10))
+            conn.commit()
+            cursor.close()
         pass
-
     # 读取新闻 Series DataFrame
     def read_news_df(self):
         pass
 
     pass
 
-
-NewsDataBase().init_db()
+if __name__ == "__main__":
+    NewsDataBase().init_db()
