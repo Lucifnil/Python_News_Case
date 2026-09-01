@@ -1,6 +1,6 @@
 from pathlib import Path
 
-# 包含当前的路径
+# 包当前的路径
 
 # 当前脚本包的路径
 # __file__
