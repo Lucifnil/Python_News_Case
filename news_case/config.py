@@ -1,22 +1,27 @@
-# URL、关键词、路径这些通常会在配置文件中统一管理，避免多次修改和硬编码
-
-# 使用pathlib获取当前脚本包的路径
 from pathlib import Path
 
-# 获取当前脚本包的路径的父目录，即项目根目录
+# 包含当前的路径
+
+# 当前脚本包的路径
+# __file__
+
+# print(__file__)
+# 表示得到当前脚本执行路径的绝对路径对象
 PACKAGE_DIR = Path(__file__).resolve().parent
 
-# 获取项目根目录
+# 项目根目录
 PROJECT_DIR = PACKAGE_DIR.parent
 
-# 定义数据库的路径
+# 需要一个数据库脚本文件的路径 sql/schema.sql
+
 DB_PATH = PROJECT_DIR / "sql" / "schema.sql"
 
-# 定义matplotlib图片的保存路径
-CHARTS_DIR = PROJECT_DIR / "charts"
+# 还要一个matplotlib 图片的保存目录
+CHART_DIR = PROJECT_DIR / "output" / "charts"
 
-# 定义csv文件的保存路径
-CLEAN_CSV_DIR = PROJECT_DIR / "output" / "clean_news.csv"
+# csv文件存储的路径
+CLEAN_CSV_PATH = PROJECT_DIR / "output" / "clean_news.csv"
+
 
 # 关键词列表：后面做简单统计时会用到
 KEYWORDS = [
@@ -28,6 +33,8 @@ KEYWORDS = [
     "市场",
     "就业",
     "消费",
+    "恋爱",
+    "青蛙"
 ]
 
 # Matplotlib 中文字体候选，谁可用就用谁
@@ -83,3 +90,5 @@ SOURCES = [
         """,
     },
 ]
+
+
