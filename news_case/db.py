@@ -4,6 +4,7 @@ try:
 except ImportError:
     from config import DB_PATH, SCHEMA_PATH
     from models import NewsItem
+import pandas as pd
 import sqlite3
 
 
@@ -54,7 +55,8 @@ class NewsDataBase(object):
         pass
     # 读取新闻 Series DataFrame
     def read_news_df(self):
-        pass
+        with self.connect() as conn:
+            return pd.read_sql_query("select * from news order by id",conn)
 
     pass
 

@@ -3,6 +3,7 @@ import asyncio
 from news_case.utils import make_counter
 from news_case.db import NewsDataBase
 from news_case.fetcher import NewsFetcher
+from news_case.analyzer import NewsAnalyzer
 
 
 # 后续所有操作全部在run_case中展示整体的流程和步骤
@@ -18,6 +19,11 @@ def run_case():
     print(f"抓取到{len(news_list)}条新闻")
     print(f"步骤{counter()}-写入新闻到sqllite数据库")
     db.save_news(news_list)
+    print(f"步骤{counter()}-读取数据数据为DataFrame")
+    df = db.read_news_df()
+    analyzer = NewsAnalyzer(df)
+    print(f"步骤{counter()}-对数据进行清洗汇总")
+    new_df = analyzer.clean_data()
 
 
 if __name__ == '__main__':
