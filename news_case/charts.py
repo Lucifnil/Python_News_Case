@@ -41,4 +41,7 @@ class NewsCharts(object):
         plt.close()
 
     def create_scatter(self, df: DataFrame):
-        plt.savefig(CHART_DIR / "04.新闻来源柱状图.png")
+        # 本地修复:兄弟版只 savefig 没画图,且文件名写错;补上散点绘制
+        plt.scatter(df["id"], df["title_length"])
+        plt.savefig(CHART_DIR / "04.新闻标题长度散点图.png")
+        plt.close()
