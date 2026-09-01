@@ -27,3 +27,24 @@ class NewsAnalyzer(object):
         CLEAN_CSV_PATH.parent.mkdir(parents=True, exist_ok=True)
         self.df.to_csv(CLEAN_CSV_PATH, index=False, encoding="utf-8-sig")
         return self.df
+
+    # 按照新闻来源分组 source_name -统计数量
+    def source_count(self):
+        #  把统计的数量的列名设置为news_count
+        return self.df.groupby("source_name")["id"].count().reset_index(name="news_count")
+
+    def keyword_count(self):
+        #  把统计的数量的列名设置为news_count
+        return self.df.groupby("keyword")["id"].count().reset_index(name="keys_count")
+
+    # 使用numpy计算平均值 标准差 最大值 最小值
+    def title_length_stats(self):
+        arr = self.df["title_length"].to_numpy()
+        return {
+            "平均长度": float(arr.mean()),
+            "最大值": int(arr.max()),
+            "最小值": int(arr.min()),
+            "标准差": float(arr.std())
+        }
+# var 方差
+# std 标准差

@@ -44,7 +44,10 @@ KEYWORDS = [
     "情感",
     "美国",
     "Agent",
-    "OpenAI"
+    "OpenAI",
+    "灾害",
+    "天气",
+    "健康"
 ]
 
 # Matplotlib 中文字体候选，谁可用就用谁
