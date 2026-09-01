@@ -13,8 +13,9 @@ PACKAGE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = PACKAGE_DIR.parent
 
 # 需要一个数据库脚本文件的路径 sql/schema.sql
+DB_PATH = PROJECT_DIR / "data" / "news.db"
 
-DB_PATH = PROJECT_DIR / "sql" / "schema.sql"
+SCHEMA_PATH = PROJECT_DIR / "sql" / "schema.sql"
 
 # 还要一个matplotlib 图片的保存目录
 CHART_DIR = PROJECT_DIR / "output" / "charts"
