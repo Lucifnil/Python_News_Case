@@ -51,9 +51,3 @@ def clean_text(text):
     # 百度 新浪 网易
     return text.strip()
 
-
-print(clean_text("<![CDATA[示例：我国多地发布稳就业新举措]]>"))
-
-print(clean_text("<a>我是你爸爸</a>"))
-
-print(clean_text("我是你            爸爸         的       学生"))
