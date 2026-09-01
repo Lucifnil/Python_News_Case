@@ -86,7 +86,6 @@ class NewsFetcher(BaseFetcher):
         for item in item_blocks:
             # item就是一个新闻对象
             title_match = re.search(r"<title>(.*?)</title>", item, re.S | re.I)
-            # 本地适配:兄弟版 <putDate> 为笔误,真实 RSS 字段是 <pubDate>,否则 pub_time 全空
             pub_date_match = re.search(r"<pubDate>(.*?)</pubDate>", item, re.S | re.I)
             link_match = re.search(r"<link>(.*?)</link>", item, re.S | re.I)
             if not title_match:
