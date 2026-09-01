@@ -5,7 +5,7 @@ from news_case.utils import make_counter
 from news_case.db import NewsDataBase
 from news_case.fetcher import NewsFetcher
 from news_case.analyzer import NewsAnalyzer
-
+from news_case.charts import NewsCharts
 from news_case.utils import timer
 
 
@@ -34,6 +34,11 @@ def run_case():
     print(keyword_count)
     title_length = analyzer.title_length_stats()
     print(title_length)
+    print(f"步骤{counter()}-按照数据生成图表")
+    chart = NewsCharts()
+    chart.create_bar(source_count)
+    chart.create_line(new_df)
+    chart.create_pie(keyword_count)
 
 
 if __name__ == '__main__':
