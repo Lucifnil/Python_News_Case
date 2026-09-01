@@ -1,6 +1,8 @@
 # 爬虫请求核心
+import asyncio
 from urllib.request import Request, urlopen
-import  ssl
+from news_case.config import SOURCES
+import ssl
 
 
 # 1.Request 构建请求对象
@@ -29,12 +31,50 @@ class BaseFetcher(object):
             return f.read().decode("utf-8", errors="ignore")
 
 
+# 子类负责 所有来源数据的请求 汇总 -> [NewsItem, NewsItem] -> SqlLite -> Pandas/Numpy -> Matplotlib
 class NewsFetcher(BaseFetcher):
-    pass
+    # 爬取一个
+    async def fetch_one(self, source):
+        # 返回当前源的html内容
+        try:
+            # 将一个普通函数转化成可等待对象
+            html = await asyncio.to_thread(self.load, source["url"])
+            return source["name"], html
+        except Exception as e:
+            print(f"抓取失败:{source['name']}", e)
+            return source["name"], source["sample"]
+        # { "name": "中新闻“， html: 'xxxx' }
+
+    # 爬取所有
+    async def fetch_all(self):
+        # 针对来源的每一条进行爬取
+        #
+        # asyncio.gather(任务1， 任务2)
+        # 生成一个列表 [等待任务1，等待任务2] -所有等待任务都结束 返回一个结果
+        # [(name, html),(name, html)，(name，html)]
+        # tasks = []
+        # for source in SOURCES:
+        #     task = self.fetch_one(source)
+        #     tasks.append(task)
+        # res = await asyncio.gather(*tasks)
+        # return res
+        return await asyncio.gather(*[self.fetch_one(source) for source in SOURCES])
+
+    async def crawl_news(self):
+        html_list = await self.fetch_all()
+        for name, html in html_list:
+            print(name, html)
+        return html_list
 
 
 # 基础BaseFetcher负责网络爬取内容
 
 # NewsFetcher继承BaseFetcher,负责数据协程并发 网络发起，正则匹配，垃圾处理
-print(NewsFetcher().load("https://www.163.com"))
+# print(asyncio.run(NewsFetcher().crawl_news()))
 # 证书 mac版本 没有ssl证书
+# asyncio.create_task(函数名(), 参数)
+# asyncio.to_thread(函数名, 参数) - 把一个非等待对象转化等待对象实现并发
+# await 只能可等待对象
+# asyncio.gather(任务1，任务2，任务3， 任务4)
+
+asyncio.run(NewsFetcher().crawl_news())
