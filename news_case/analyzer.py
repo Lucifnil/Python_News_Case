@@ -25,5 +25,5 @@ class NewsAnalyzer(object):
         # 希望把数据转成csv文件 可以去看
         # 如果文件不存在则创建该文件
         CLEAN_CSV_PATH.parent.mkdir(parents=True, exist_ok=True)
-        self.df.to_csv(CLEAN_CSV_PATH, index=False, encoding="utf-8")
+        self.df.to_csv(CLEAN_CSV_PATH, index=False, encoding="utf-8-sig")
         return self.df
