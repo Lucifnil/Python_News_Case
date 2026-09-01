@@ -36,7 +36,7 @@ class NewsCharts(object):
         plt.close()
 
     def create_pie(self, df: DataFrame):
-        plt.pie(df["keys_count"], labels=df["keyword"])
+        plt.pie(df["keys_count"], labels=list(df["keyword"]))
         plt.savefig(CHART_DIR / "03.关键字分布.png")
         plt.close()
 
