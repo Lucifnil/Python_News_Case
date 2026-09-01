@@ -30,9 +30,3 @@ class NewsItem(object):
     def __str__(self):
         return f"{self.source_name}-{self.title}"
 
-
-# arr: list[str] = ["1", "2"]
-# arr1 = [1, 2, 3]
-
-print(NewsItem(source_name="百度", title="新闻标题", link="http://www.baidu.com", pub_time="2023-04-01 12:00:00",
-               keyword="新闻", title_length=10))
